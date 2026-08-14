@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "geniebook-student-ios-distribution",
+    "commit": "e0db19441370a20f0dfc887af3d1a293a06d776b",
+    "toastImplementation": "Geniebook.Presentation.UiKit.VToastViewV2",
+    "xcode": "Xcode 26.6; Build version 17F113",
+    "iosRuntime": {
+      "phone": "iOS.26.5",
+      "ipad": "iOS.26.5"
+    },
+    "simulators": {
+      "phone": {
+        "udid": "4F904AD1-DF53-43BE-B18F-C5725F93BA69",
+        "name": "iPhone 17",
+        "runtime": "iOS.26.5"
+      },
+      "ipad": {
+        "udid": "81060C40-9BF3-4711-9E61-72A12CC53C63",
+        "name": "mob404-ipad-10th",
+        "runtime": "iOS.26.5"
+      }
+    },
+    "untrackedNonBuildDocs": []
+  },
+  "cases": {
+    "bottom-synthetic": {
+      "status": "captured",
+      "image": "images/bottom-synthetic.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "hidden-icon-error": {
+      "status": "captured",
+      "image": "images/hidden-icon-error.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "mode-switch-inline-cta": {
+      "status": "captured",
+      "image": "images/mode-switch-inline-cta.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ],
+      "divergence": {
+        "gbvToastValue": "Switching GenieAsk mode; inline CTA on every device",
+        "productionValue": "Localized teacher-response sentence; inline on phone and dedicated on iPad",
+        "reason": "The production call site and localized string are authoritative."
+      }
+    },
+    "reminder-undo": {
+      "status": "captured",
+      "image": "images/reminder-undo.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ],
+      "divergence": {
+        "gbvToastValue": "Reminder removed",
+        "productionValue": "Reminder has been removed.",
+        "reason": "The production call site uses lc_online_lesson_unset_reminder."
+      }
+    },
+    "ten-minute-warning-cta": {
+      "status": "captured",
+      "image": "images/ten-minute-warning-cta.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ],
+      "divergence": {
+        "gbvToastValue": "10 minutes remaining",
+        "productionValue": "Reminder that you only have 10 minutes remaining",
+        "reason": "The production call site uses lc_reminder_10_minutes_remaining."
+      }
+    },
+    "default-title-only": {
+      "status": "captured",
+      "image": "images/default-title-only.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "success-icon-title": {
+      "status": "captured",
+      "image": "images/success-icon-title.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "error-hidden-icon-multiline": {
+      "status": "captured",
+      "image": "images/error-hidden-icon-multiline.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "warning-icon-title": {
+      "status": "captured",
+      "image": "images/warning-icon-title.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "custom-colors-title": {
+      "status": "unsupported",
+      "reason": "VToastViewV2 exposes only its four fixed production color styles."
+    },
+    "inline-cta-with-icon": {
+      "status": "captured",
+      "image": "images/inline-cta-with-icon.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "inline-cta-without-icon": {
+      "status": "captured",
+      "image": "images/inline-cta-without-icon.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "dedicated-cta-with-icon": {
+      "status": "captured",
+      "image": "images/dedicated-cta-with-icon.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "dedicated-cta-without-icon": {
+      "status": "captured",
+      "image": "images/dedicated-cta-without-icon.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "ipad-inline-cta-centered": {
+      "status": "captured",
+      "image": "images/ipad-inline-cta-centered.png",
+      "device": "ipad-10th-generation",
+      "canvasPoints": [
+        820,
+        1180
+      ],
+      "scale": 3,
+      "pixelSize": [
+        2460,
+        3540
+      ]
+    },
+    "ipad-dedicated-cta-bottom": {
+      "status": "captured",
+      "image": "images/ipad-dedicated-cta-bottom.png",
+      "device": "ipad-10th-generation",
+      "canvasPoints": [
+        820,
+        1180
+      ],
+      "scale": 3,
+      "pixelSize": [
+        2460,
+        3540
+      ]
+    },
+    "bottom-custom-spacing": {
+      "status": "captured",
+      "image": "images/bottom-custom-spacing.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "stress-large-icon": {
+      "status": "unsupported",
+      "reason": "VToastViewV2 does not expose configurable icon dimensions."
+    },
+    "stress-long-title": {
+      "status": "captured",
+      "image": "images/stress-long-title.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "stress-long-cta": {
+      "status": "captured",
+      "image": "images/stress-long-cta.png",
+      "device": "iphone-14",
+      "canvasPoints": [
+        390,
+        844
+      ],
+      "scale": 3,
+      "pixelSize": [
+        1170,
+        2532
+      ]
+    },
+    "custom-asset-icon": {
+      "status": "unsupported",
+      "reason": "The handoff contract does not define a stable Geniebook image asset for this row."
+    },
+    "accessibility-extra-extra-extra-large": {
+      "status": "unsupported",
+      "reason": "VToastViewV2 uses fixed fonts and does not support the requested Dynamic Type trait."
+    },
+    "right-to-left-layout": {
+      "status": "unsupported",
+      "reason": "The production toast has no verified right-to-left layout contract."
+    }
+  }
+}
