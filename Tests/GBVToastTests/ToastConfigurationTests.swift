@@ -7,6 +7,7 @@ struct ToastConfigurationTests {
     let configuration = ToastConfiguration(message: "Saved")
 
     #expect(configuration.style == .normal)
+    #expect(configuration.width == .compact)
     #expect(configuration.edge == .top)
     #expect(configuration.icon == .default)
     #expect(configuration.cta == nil)
@@ -14,6 +15,12 @@ struct ToastConfigurationTests {
     #expect(configuration.isAnimated)
     #expect(configuration.safeAreaSpacing == 16)
     #expect(configuration.deduplicationKey == nil)
+  }
+
+  @Test func fullWidthLayoutIsRepresentable() {
+    let configuration = ToastConfiguration(message: "Saved", width: .full)
+
+    #expect(configuration.width == .full)
   }
 
   @Test func bottomAndInlineCTAStayPlatformNeutral() {

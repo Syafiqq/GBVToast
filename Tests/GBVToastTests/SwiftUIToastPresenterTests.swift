@@ -27,6 +27,48 @@
       #expect(hostedView?.frame.height ?? 844 < container.bounds.height)
     }
 
+    @Test func fullWidthUsesPhoneMargins() {
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
+      let presenter = SwiftUIToastPresenter(
+        containerView: container,
+        root: .systemFallback
+      )
+
+      _ = presenter.present(
+        ToastConfiguration(
+          message: "Saved",
+          width: .full,
+          autoDismissDuration: nil,
+          isAnimated: false
+        )
+      )
+      container.layoutIfNeeded()
+
+      #expect(container.subviews.first?.frame.width == 358)
+      #expect(container.subviews.first?.frame.minX == 16)
+    }
+
+    @Test func fullWidthIsCappedAt400OnWideContainers() {
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: 820, height: 1_180))
+      let presenter = SwiftUIToastPresenter(
+        containerView: container,
+        root: .systemFallback
+      )
+
+      _ = presenter.present(
+        ToastConfiguration(
+          message: "Saved",
+          width: .full,
+          autoDismissDuration: nil,
+          isAnimated: false
+        )
+      )
+      container.layoutIfNeeded()
+
+      #expect(container.subviews.first?.frame.width == 400)
+      #expect(container.subviews.first?.frame.midX == container.bounds.midX)
+    }
+
     @Test func autoDismissUsesInjectedSleeperWithoutWallClockDelay() async {
       let container = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
       let presenter = SwiftUIToastPresenter(

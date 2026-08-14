@@ -135,11 +135,11 @@
         hostedView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
         hostedView.leadingAnchor.constraint(
           greaterThanOrEqualTo: containerView.leadingAnchor,
-          constant: 16
+          constant: ToastWidth.horizontalMargin
         ),
         hostedView.trailingAnchor.constraint(
           lessThanOrEqualTo: containerView.trailingAnchor,
-          constant: -16
+          constant: -ToastWidth.horizontalMargin
         ),
       ]
       switch configuration.edge {
@@ -156,11 +156,24 @@
             constant: -configuration.safeAreaSpacing
           ))
       }
-      let maximumWidth = containerView.traitCollection.userInterfaceIdiom == .pad
+      let configuredMaximumWidth = containerView.traitCollection.userInterfaceIdiom == .pad
         ? configuration.maximumPadWidth
         : configuration.maximumPhoneWidth
-      if let maximumWidth {
-        constraints.append(hostedView.widthAnchor.constraint(lessThanOrEqualToConstant: maximumWidth))
+      if let configuredMaximumWidth {
+        constraints.append(
+          hostedView.widthAnchor.constraint(lessThanOrEqualToConstant: configuredMaximumWidth)
+        )
+      }
+      if configuration.width == .full {
+        constraints.append(
+          hostedView.widthAnchor.constraint(lessThanOrEqualToConstant: ToastWidth.fullMaximum)
+        )
+        let availableWidth = hostedView.widthAnchor.constraint(
+          equalTo: containerView.widthAnchor,
+          constant: -(ToastWidth.horizontalMargin * 2)
+        )
+        availableWidth.priority = .defaultHigh
+        constraints.append(availableWidth)
       }
       NSLayoutConstraint.activate(constraints)
     }

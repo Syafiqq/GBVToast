@@ -310,6 +310,22 @@
     "right-to-left-layout": {
       "status": "unsupported",
       "reason": "The production toast has no verified right-to-left layout contract."
+    },
+    "width-iphone-compact": {
+      "status": "unsupported",
+      "reason": "Compact and full are new GBVToast width modes with no production equivalent."
+    },
+    "width-iphone-full": {
+      "status": "unsupported",
+      "reason": "Compact and full are new GBVToast width modes with no production equivalent."
+    },
+    "width-ipad-compact": {
+      "status": "unsupported",
+      "reason": "Compact and full are new GBVToast width modes with no production equivalent."
+    },
+    "width-ipad-full": {
+      "status": "unsupported",
+      "reason": "Compact and full are new GBVToast width modes with no production equivalent."
     }
   }
 }

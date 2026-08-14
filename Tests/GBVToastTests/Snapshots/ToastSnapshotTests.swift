@@ -61,5 +61,35 @@
         )
       }
     }
+
+    func testCompactAndFullWidthMatrix() {
+      for fixture in ToastWidthFixtures.all {
+        assertSnapshot(
+          of: ToastSnapshotSupport.swiftUIWidth(
+            fixture.configuration,
+            device: fixture.device
+          ),
+          as: .image(precision: 1),
+          named: fixture.name
+        )
+      }
+    }
+
+    func testFullWidthUsesSemanticLeadingAlignmentInRTL() {
+      assertSnapshot(
+        of: ToastSnapshotSupport.swiftUIWidth(
+          ToastConfiguration(
+            message: "تم الحفظ",
+            width: .full,
+            style: .info,
+            autoDismissDuration: nil,
+            isAnimated: false
+          ),
+          device: .phone,
+          layoutDirection: .rightToLeft
+        ),
+        as: .image(precision: 1)
+      )
+    }
   }
 #endif

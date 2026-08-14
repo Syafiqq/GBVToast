@@ -15,6 +15,7 @@ Then present from any main-actor UIKit, SwiftUI, coordinator, service, or view-m
 let token = GBVToast.showToast(
   ToastConfiguration(
     message: "Reminder removed",
+    width: .full,
     style: .info,
     cta: ToastCTA(title: "Undo", layout: .dedicated)
   )
@@ -39,6 +40,10 @@ The canonical styles are `.normal`, `.info`, `.danger`, `.warning`, and per-toas
 Icons may be default, hidden, or custom assets with explicit template/original rendering.
 CTA layouts are `inline` and `dedicated`; the renderer automatically falls back vertically when
 width or Dynamic Type makes the requested horizontal layout unsafe.
+
+Toast widths are `.compact` (the default, wrapping the content) and `.full`. Full-width toasts fill
+the available horizontal space while preserving 16-point device-edge margins, and are capped at
+400 points on wider devices. Per-device maximum widths can still provide a tighter cap.
 
 Requests that cannot become visible resolve as `.notPresented(reason)`, including missing or
 ambiguous windows, unavailable captured scenes, and duplicate keys within one scene.

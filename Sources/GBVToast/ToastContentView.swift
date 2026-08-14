@@ -27,6 +27,10 @@
         .padding(.horizontal, palette.horizontalInset)
         .padding(.vertical, palette.verticalInset)
         .foregroundStyle(palette.foregroundStyle)
+        .frame(
+          maxWidth: configuration.width == .full ? .infinity : nil,
+          alignment: .leading
+        )
         .background(palette.backgroundStyle, in: .rect(cornerRadius: palette.cornerRadius))
         .contentShape(.rect(cornerRadius: palette.cornerRadius))
         .accessibilityElement(children: .contain)

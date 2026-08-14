@@ -44,6 +44,52 @@
       return fitted(controller.view, contentWidth: width)
     }
 
+    static func swiftUIWidth(
+      _ configuration: ToastConfiguration,
+      device: ToastParityFixture.Device,
+      layoutDirection: LayoutDirection = .leftToRight
+    ) -> UIView {
+      let maximumAvailableWidth = device.size.width - (ToastWidth.horizontalMargin * 2)
+      let content = ToastContentView(
+        configuration: configuration,
+        root: GeniebookToastReferencePreset.configuration,
+        onDismiss: {}
+      )
+        .environment(\.layoutDirection, layoutDirection)
+      let measurementController = UIHostingController(rootView: content)
+      let intrinsicSize = measurementController.sizeThatFits(in: CGSize(
+        width: maximumAvailableWidth,
+        height: .greatestFiniteMagnitude
+      ))
+      let width = configuration.width == .full
+        ? min(maximumAvailableWidth, ToastWidth.fullMaximum)
+        : min(ceil(intrinsicSize.width), maximumAvailableWidth)
+      let renderController = UIHostingController(rootView: content.frame(width: width))
+      renderController.view.backgroundColor = .clear
+      let toast = fitted(renderController.view, contentWidth: width)
+      return fullPageFitted(toast, configuration: configuration, device: device)
+    }
+
+    private static func fullPageFitted(
+      _ toast: UIView,
+      configuration: ToastConfiguration,
+      device: ToastParityFixture.Device
+    ) -> UIView {
+      let canvas = UIView(frame: CGRect(origin: .zero, size: device.size))
+      canvas.backgroundColor = UIColor(red: 0.94, green: 0.95, blue: 0.97, alpha: 1)
+      let originY = configuration.edge == .top
+        ? device.safeAreaTop + configuration.safeAreaSpacing
+        : device.size.height - device.safeAreaBottom - configuration.safeAreaSpacing
+          - toast.bounds.height
+      toast.frame.origin = CGPoint(
+        x: (device.size.width - toast.bounds.width) / 2,
+        y: originY
+      )
+      canvas.addSubview(toast)
+      canvas.layoutIfNeeded()
+      return canvas
+    }
+
     private static func fullPage(
       _ toast: UIView,
       configuration: ToastConfiguration,

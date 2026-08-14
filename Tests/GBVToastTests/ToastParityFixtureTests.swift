@@ -31,4 +31,20 @@ struct ToastParityFixtureTests {
     #expect(names.contains("stress-long-title"))
     #expect(names.contains("stress-long-cta"))
   }
+
+  @Test func widthMatrixCoversPhonePadCompactAndFull() {
+    #expect(ToastWidthFixtures.all.count == 4)
+    #expect(ToastWidthFixtures.all.contains {
+      $0.device == .phone && $0.configuration.width == .compact
+    })
+    #expect(ToastWidthFixtures.all.contains {
+      $0.device == .phone && $0.configuration.width == .full
+    })
+    #expect(ToastWidthFixtures.all.contains {
+      $0.device == .pad && $0.configuration.width == .compact
+    })
+    #expect(ToastWidthFixtures.all.contains {
+      $0.device == .pad && $0.configuration.width == .full
+    })
+  }
 }

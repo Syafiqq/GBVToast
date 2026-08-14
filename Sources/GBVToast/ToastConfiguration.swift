@@ -2,6 +2,7 @@ import Foundation
 
 public struct ToastConfiguration: Sendable, Equatable {
   public let message: String
+  public let width: ToastWidth
   public let style: ToastStyle
   public let edge: ToastEdge
   public let icon: ToastIcon
@@ -18,6 +19,7 @@ public struct ToastConfiguration: Sendable, Equatable {
 
   public init(
     message: String,
+    width: ToastWidth = .compact,
     style: ToastStyle = .normal,
     edge: ToastEdge = .top,
     icon: ToastIcon = .default,
@@ -33,6 +35,7 @@ public struct ToastConfiguration: Sendable, Equatable {
     deduplicationKey: String? = nil
   ) {
     self.message = message
+    self.width = width
     self.style = style
     self.edge = edge
     self.icon = icon

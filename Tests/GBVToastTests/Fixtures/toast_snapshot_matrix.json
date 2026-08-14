@@ -40,6 +40,21 @@
         "accessibility-extra-extra-extra-large",
         "right-to-left-layout"
       ]
+    },
+    {
+      "name": "Compact and full widths",
+      "swiftuiPrefix": "testCompactAndFullWidthMatrix",
+      "defaultDevice": "iPhone 14 — 390×844 pt",
+      "deviceOverrides": {
+        "width-ipad-compact": "iPad (10th generation) — 820×1180 pt",
+        "width-ipad-full": "iPad (10th generation) — 820×1180 pt"
+      },
+      "cases": [
+        "width-iphone-compact",
+        "width-iphone-full",
+        "width-ipad-compact",
+        "width-ipad-full"
+      ]
     }
   ]
 }

@@ -17,10 +17,33 @@ SPEC.loader.exec_module(MODULE)
 class SnapshotComparisonTests(unittest.TestCase):
     def test_discovers_complete_renderer_matrix(self):
         pairs = MODULE.discover_pairs()
-        self.assertEqual(len(pairs), 23)
+        self.assertEqual(len(pairs), 27)
         self.assertEqual(sum(pair.geniebook is not None for pair in pairs), 18)
-        self.assertEqual(sum(pair.swiftui is not None for pair in pairs), 23)
+        self.assertEqual(sum(pair.swiftui is not None for pair in pairs), 27)
         self.assertTrue(any(pair.geniebook is None for pair in pairs))
+
+    def test_width_section_contains_phone_pad_compact_full_matrix(self):
+        pairs = MODULE.discover_pairs()
+        width_pairs = [pair for pair in pairs if pair.group == "Compact and full widths"]
+
+        self.assertEqual(
+            [pair.name for pair in width_pairs],
+            [
+                "width-iphone-compact",
+                "width-iphone-full",
+                "width-ipad-compact",
+                "width-ipad-full",
+            ],
+        )
+        self.assertEqual(
+            [pair.device for pair in width_pairs],
+            [
+                "iPhone 14 — 390×844 pt",
+                "iPhone 14 — 390×844 pt",
+                "iPad (10th generation) — 820×1180 pt",
+                "iPad (10th generation) — 820×1180 pt",
+            ],
+        )
 
     def test_unmatched_snapshot_keeps_an_empty_opposite_column(self):
         with tempfile.TemporaryDirectory() as directory:
