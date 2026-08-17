@@ -49,6 +49,39 @@ enum GeniebookToastFixtures {
     autoDismissDuration: nil
   )
 
+  static let updateVersionImageCTA = ToastConfiguration(
+    message: "A newer version of Geniebook (4.2.0) is available. Update now for the latest improvements.",
+    width: .full,
+    style: .normal,
+    edge: .bottom,
+    icon: .hidden,
+    cta: ToastCTA(
+      label: .asset(
+        name: "UpdateVersionAppStore",
+        bundleIdentifier: Bundle.module.bundleIdentifier,
+        renderingMode: .original,
+        accessibilityLabel: "Open App Store"
+      ),
+      layout: .inline
+    ),
+    autoDismissDuration: 2,
+    isAnimated: false,
+    safeAreaSpacing: 15,
+    deduplicationKey: "geniebook.update-version"
+  )
+
+  static let updateVersionLongMessage = ToastConfiguration(
+    message: "A newer version of Geniebook (4.2.0) is available with important learning improvements and reliability fixes. Update now to continue.",
+    width: .full,
+    style: .normal,
+    edge: .bottom,
+    icon: .hidden,
+    cta: updateVersionImageCTA.cta,
+    autoDismissDuration: nil,
+    isAnimated: false,
+    safeAreaSpacing: 15
+  )
+
   static let all = [
     modeSwitch,
     modeSwitchDedicated,
@@ -56,5 +89,6 @@ enum GeniebookToastFixtures {
     reminderUndo,
     hiddenIcon,
     syntheticBottom,
+    updateVersionImageCTA,
   ]
 }

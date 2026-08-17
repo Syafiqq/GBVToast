@@ -70,6 +70,21 @@
       return fullPageFitted(toast, configuration: configuration, device: device)
     }
 
+    static func legacyImageCTA(_ configuration: ToastConfiguration) -> UIView {
+      let cta = configuration.cta ?? ToastCTA(title: "")
+      let controller = UIHostingController(rootView: ToastLegacyResponsiveLayout(
+        message: configuration.message,
+        cta: cta,
+        font: .body,
+        foregroundStyle: .white,
+        onCTA: {}
+      )
+      .padding(16)
+      .background(Color.black))
+      controller.view.backgroundColor = .clear
+      return fitted(controller.view, contentWidth: 358)
+    }
+
     private static func fullPageFitted(
       _ toast: UIView,
       configuration: ToastConfiguration,

@@ -6,6 +6,14 @@
 
   @MainActor
   struct SwiftUIToastPresenterTests {
+    private actor CountingSleeper: ToastSleeper {
+      private(set) var count = 0
+
+      func sleep(for duration: TimeInterval) async throws {
+        count += 1
+      }
+    }
+
     private struct ImmediateSleeper: ToastSleeper {
       func sleep(for duration: TimeInterval) async throws {}
     }
@@ -115,6 +123,68 @@
       #expect(await token.result == .dismissed)
       #expect(container.subviews.count == 1)
       #expect(container.subviews.first?.isHidden == true)
+    }
+
+    @Test func missingCTAAssetDoesNotPresentOrReserveItsKey() async throws {
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: 390, height: 844))
+      let sleeper = CountingSleeper()
+      let presenter = SwiftUIToastPresenter(
+        containerView: container,
+        root: .systemFallback,
+        sleeper: sleeper
+      )
+      let key = "update-version"
+
+      let rejected = presenter.present(.init(
+        message: "Update available",
+        cta: .init(label: .asset(
+          name: "MissingToastAsset",
+          accessibilityLabel: "Open App Store"
+        )),
+        autoDismissDuration: 2,
+        deduplicationKey: key
+      ))
+
+      #expect(await rejected.result == .notPresented(.ctaAssetUnavailable))
+      #expect(container.subviews.isEmpty)
+      #expect(presenter.isEmpty)
+      #expect(await sleeper.count == 0)
+
+      let identifier = try #require(Bundle.module.bundleIdentifier)
+      let accepted = presenter.present(.init(
+        message: "Update available",
+        cta: .init(label: .asset(
+          name: "ToastTestIcon",
+          bundleIdentifier: identifier,
+          accessibilityLabel: "Open App Store"
+        )),
+        autoDismissDuration: nil,
+        deduplicationKey: key
+      ))
+
+      #expect(container.subviews.count == 1)
+      presenter.dismiss(accepted)
+      #expect(await accepted.result == .dismissed)
+    }
+
+    @Test func imageCTAButtonMeetsMinimumInteractionSize() throws {
+      let identifier = try #require(Bundle.module.bundleIdentifier)
+      let button = ToastCTAButton(
+        label: .asset(
+          name: "ToastTestIcon",
+          bundleIdentifier: identifier,
+          accessibilityLabel: "Open App Store"
+        ),
+        font: .body,
+        action: {}
+      )
+      let controller = UIHostingController(rootView: button)
+
+      let size = controller.sizeThatFits(in: CGSize(width: 200, height: 200))
+
+      #expect(ToastCTAButton.minimumTargetSize == 44)
+      #expect(size.width >= 44)
+      #expect(size.height >= 44)
     }
   }
 #endif

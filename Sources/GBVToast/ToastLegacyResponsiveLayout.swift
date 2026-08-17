@@ -14,13 +14,7 @@
           .font(font)
           .fixedSize(horizontal: false, vertical: true)
           .accessibilityHidden(true)
-        Button(action: onCTA) {
-          Text(cta.title)
-            .font(font)
-            .underline()
-            .fixedSize(horizontal: false, vertical: true)
-        }
-        .buttonStyle(.plain)
+        ToastCTAButton(label: cta.label, font: font, action: onCTA)
         .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
       }
       .foregroundStyle(foregroundStyle)

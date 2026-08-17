@@ -9,4 +9,5 @@ public enum ToastNotPresentedReason: Error, Sendable, Equatable {
   case ambiguousWindows
   case sceneUnavailable
   case duplicateKey
+  case ctaAssetUnavailable
 }

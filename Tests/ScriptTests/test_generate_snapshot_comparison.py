@@ -17,9 +17,9 @@ SPEC.loader.exec_module(MODULE)
 class SnapshotComparisonTests(unittest.TestCase):
     def test_discovers_complete_renderer_matrix(self):
         pairs = MODULE.discover_pairs()
-        self.assertEqual(len(pairs), 27)
+        self.assertEqual(len(pairs), 28)
         self.assertEqual(sum(pair.geniebook is not None for pair in pairs), 18)
-        self.assertEqual(sum(pair.swiftui is not None for pair in pairs), 27)
+        self.assertEqual(sum(pair.swiftui is not None for pair in pairs), 28)
         self.assertTrue(any(pair.geniebook is None for pair in pairs))
 
     def test_width_section_contains_phone_pad_compact_full_matrix(self):
@@ -85,6 +85,11 @@ class SnapshotComparisonTests(unittest.TestCase):
         self.assertIn("GBVToast SwiftUI", report)
         self.assertNotIn('type="range"', report)
         self.assertNotIn("function slide", report)
+
+    def test_generated_report_contains_update_version_image_cta(self):
+        report = MODULE.build_html(MODULE.discover_pairs())
+
+        self.assertIn("Update Version Image Cta", report)
 
 
 if __name__ == "__main__":

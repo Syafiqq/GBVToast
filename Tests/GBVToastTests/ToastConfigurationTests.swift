@@ -3,6 +3,52 @@ import Testing
 @testable import GBVToast
 
 struct ToastConfigurationTests {
+  @Test func legacyTitleInitializerProducesATextLabel() {
+    let legacy = ToastCTA(title: "Undo", layout: .inline)
+
+    #expect(legacy == ToastCTA(label: .text("Undo"), layout: .inline))
+    #expect(legacy.label == .text("Undo"))
+  }
+
+  @Test func assetLabelMetadataParticipatesInValueSemantics() {
+    let label = ToastCTA.Label.asset(
+      name: "AppStore",
+      bundleIdentifier: "com.geniebook.student",
+      renderingMode: .original,
+      accessibilityLabel: "Open App Store"
+    )
+    let configuration = ToastConfiguration(message: "Update available", cta: .init(label: label))
+
+    #expect(configuration.cta?.label == label)
+    #expect(label != .asset(
+      name: "AppStore",
+      bundleIdentifier: "com.geniebook.student",
+      renderingMode: .template,
+      accessibilityLabel: "Open App Store"
+    ))
+    #expect(label != .asset(
+      name: "AppStore",
+      bundleIdentifier: "com.geniebook.student",
+      renderingMode: .original,
+      accessibilityLabel: "Store"
+    ))
+  }
+
+  @Test func assetLabelDefaultsToOriginalRenderingAndDedicatedLayout() {
+    let cta = ToastCTA(label: .asset(
+      name: "AppStore",
+      accessibilityLabel: "Open App Store"
+    ))
+
+    #expect(cta.label == .asset(
+      name: "AppStore",
+      bundleIdentifier: nil,
+      renderingMode: .original,
+      accessibilityLabel: "Open App Store"
+    ))
+    #expect(cta.layout == .dedicated)
+  }
+
   @Test func defaultsMatchTheProductionTopToastContract() {
     let configuration = ToastConfiguration(message: "Saved")
 

@@ -326,6 +326,10 @@
     "width-ipad-full": {
       "status": "unsupported",
       "reason": "Compact and full are new GBVToast width modes with no production equivalent."
+    },
+    "update-version-image-cta": {
+      "status": "unsupported",
+      "reason": "The image CTA is a new GBVToast capability; no production SnackBar golden was supplied to this repository."
     }
   }
 }

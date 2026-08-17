@@ -41,6 +41,26 @@ Icons may be default, hidden, or custom assets with explicit template/original r
 CTA layouts are `inline` and `dedicated`; the renderer automatically falls back vertically when
 width or Dynamic Type makes the requested horizontal layout unsafe.
 
+CTA labels may be text or named assets. The existing `ToastCTA(title:layout:)` initializer remains
+available. Image-only CTAs require an explicit accessibility label and use original rendering by
+default:
+
+```swift
+let cta = ToastCTA(
+  label: .asset(
+    name: "AppStoreButton",
+    bundleIdentifier: Bundle.main.bundleIdentifier,
+    renderingMode: .original,
+    accessibilityLabel: "Open App Store"
+  ),
+  layout: .inline
+)
+```
+
+A supplied bundle identifier is resolved strictly and never falls back to the main bundle. If the
+bundle or image is unavailable, the toast is not attached and its token resolves as
+`.notPresented(.ctaAssetUnavailable)`.
+
 Toast widths are `.compact` (the default, wrapping the content) and `.full`. Full-width toasts fill
 the available horizontal space while preserving 16-point device-edge margins, and are capped at
 400 points on wider devices. Per-device maximum widths can still provide a tighter cap.
@@ -57,5 +77,5 @@ Geniebook production goldens:
 python3 Scripts/generate_snapshot_comparison.py
 ```
 
-The report is written to `.build/reports/toast-snapshot-comparison.html`. The 23 keys in
-`Tests/GBVToastTests/Fixtures/toast_snapshot_matrix.json` are the ground truth.
+The report is written to `.build/reports/toast-snapshot-comparison.html`.
+`Tests/GBVToastTests/Fixtures/toast_snapshot_matrix.json` is the ground truth.

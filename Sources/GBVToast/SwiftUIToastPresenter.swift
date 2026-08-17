@@ -39,6 +39,10 @@
         token.resolve(.notPresented(.noEligibleWindow))
         return token
       }
+      guard canResolveCTAAsset(in: configuration) else {
+        token.resolve(.notPresented(.ctaAssetUnavailable))
+        return token
+      }
       guard store.insert(token, deduplicationKey: configuration.deduplicationKey) else {
         return token
       }
@@ -97,6 +101,13 @@
         UIAccessibility.post(notification: .announcement, argument: configuration.message)
       }
       return token
+    }
+
+    private func canResolveCTAAsset(in configuration: ToastConfiguration) -> Bool {
+      guard case .asset(let name, let bundleIdentifier, _, _)? = configuration.cta?.label else {
+        return true
+      }
+      return ToastAssetResolver.image(named: name, bundleIdentifier: bundleIdentifier) != nil
     }
 
     func dismiss(_ token: ToastPresentationToken) {

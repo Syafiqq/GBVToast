@@ -110,19 +110,7 @@
     }
 
     private func ctaButton(_ cta: ToastCTA) -> some View {
-      Button(action: handleCTA) {
-        Text(cta.title)
-          .font(palette.font)
-          .underline()
-          .multilineTextAlignment(.trailing)
-          .fixedSize(horizontal: false, vertical: true)
-          .background {
-            Color.clear
-              .frame(minWidth: 44, minHeight: 44)
-              .contentShape(Rectangle())
-          }
-      }
-        .buttonStyle(.plain)
+      ToastCTAButton(label: cta.label, font: palette.font, action: handleCTA)
     }
 
     func handleDismiss() {
