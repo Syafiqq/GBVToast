@@ -91,6 +91,24 @@ class SnapshotComparisonTests(unittest.TestCase):
 
         self.assertIn("Update Version Image Cta", report)
 
+    def test_generated_report_spotlights_centered_inline_ctas(self):
+        snapshots = MODULE.discover_centered_cta_snapshots()
+        report = MODULE.build_html([], snapshots)
+
+        self.assertEqual(
+            [snapshot.name for snapshot in snapshots],
+            [
+                "Image CTA",
+                "Image CTA with long message",
+                "Image CTA right to left",
+                "Text CTA with large icon",
+                "Text CTA with long label",
+            ],
+        )
+        self.assertIn("Centered inline CTA", report)
+        self.assertIn("Vertically centered against the complete inline message row", report)
+        self.assertEqual(report.count("data:image/png;base64,"), 5)
+
 
 if __name__ == "__main__":
     unittest.main()
