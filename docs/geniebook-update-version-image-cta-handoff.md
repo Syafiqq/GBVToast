@@ -1,5 +1,94 @@
 # Geniebook update-version toast: image CTA handoff
 
+## Follow-up after the 1.0.2 integration (2026-08-18)
+
+GBVToast 1.0.2 delivered the accessible asset CTA described below, and Geniebook has consumed it
+for the update-version notification. Production integration exposed one remaining presentation
+gap: an asset CTA always uses the image's intrinsic point size. Geniebook's existing App Store
+artwork is 100×100 points, so the CTA dominated the toast instead of appearing as the intended
+32×32 icon.
+
+Geniebook currently carries a temporary `ic_appstore_32` asset with 32/64/96-pixel renditions for
+1×/2×/3×. This preserves the required 32×32 visible icon while GBVToast continues to provide its
+44×44 minimum interaction target. The workaround should be removed after the library exposes
+display sizing.
+
+The inline layout also places the CTA at the bottom trailing corner. With a single-line update
+message, the desired placement is vertically centered relative to the message row.
+
+### Recommended public API extension
+
+Keep `ToastCTA` typed, `Sendable`, and `Equatable`; do not accept `AnyView`, `Image`, `UIImage`, a
+`@ViewBuilder` closure, or arbitrary custom SwiftUI content. Arbitrary views would weaken the
+configuration model's concurrency guarantees, equality, asset validation, deterministic
+snapshots, and library-owned accessibility contract.
+
+Add an optional display size to the existing asset label instead:
+
+```swift
+case asset(
+  name: String,
+  bundleIdentifier: String? = nil,
+  renderingMode: ToastIcon.RenderingMode = .original,
+  size: CGSize? = nil,
+  accessibilityLabel: String
+)
+```
+
+When `size` is present, render the image at that size while retaining the existing minimum
+44×44-point button target. When it is absent, preserve 1.0.2's intrinsic-size behavior for source
+compatibility.
+
+The intended Geniebook configuration is:
+
+```swift
+ToastCTA(
+  label: .asset(
+    name: "ic_appstore-100",
+    bundleIdentifier: Bundle.main.bundleIdentifier,
+    size: CGSize(width: 32, height: 32),
+    accessibilityLabel: "Open App Store"
+  ),
+  layout: .inline
+)
+```
+
+### Inline alignment change
+
+`ToastInlineLayout.placeSubviews` currently anchors the CTA to `.bottomTrailing` in left-to-right
+layouts and `.bottomLeading` in right-to-left layouts. Place it at `bounds.midY` using `.trailing`
+or `.leading` respectively so inline text and asset CTAs are vertically centered:
+
+```swift
+// Left-to-right
+subviews[1].place(
+  at: CGPoint(x: bounds.maxX, y: bounds.midY),
+  anchor: .trailing,
+  proposal: .init(cta)
+)
+
+// Right-to-left
+subviews[1].place(
+  at: CGPoint(x: bounds.minX, y: bounds.midY),
+  anchor: .leading,
+  proposal: .init(cta)
+)
+```
+
+### Follow-up acceptance criteria
+
+- Asset CTAs accept an optional explicit display size.
+- Omitting the size preserves the 1.0.2 rendering contract.
+- A 32×32 visible asset remains inside a minimum 44×44 interaction target.
+- Inline CTAs are vertically centered for single-line and multiline messages.
+- Left-to-right and right-to-left trailing placement remains semantic.
+- Text CTA behavior and responsive vertical fallback remain unchanged.
+- Missing assets still resolve as `.notPresented(.ctaAssetUnavailable)`.
+- Snapshots cover a 32×32 asset CTA with single-line and multiline messages, right-to-left
+  placement, and intrinsic-size backward compatibility.
+- After release, Geniebook removes `ic_appstore_32`, uses the original asset with
+  `size: CGSize(width: 32, height: 32)`, and refreshes its update-version toast snapshot.
+
 ## Objective
 
 Add an image-based call-to-action to GBVToast so Geniebook can replace its last standalone
