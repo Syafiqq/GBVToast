@@ -66,6 +66,7 @@
         reduceMotionOverride: nil
       ))
       controller.view.backgroundColor = .clear
+      if #available(iOS 16.0, *) { controller.sizingOptions = .intrinsicContentSize }
       controller.view.translatesAutoresizingMaskIntoConstraints = false
       controller.view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
       token.onDismiss = { [weak self, weak token] in
